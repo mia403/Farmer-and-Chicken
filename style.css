@@ -1,0 +1,545 @@
+:root {
+    --land: #BFA46F;
+  --grass-green: #17e678;
+  --darkbrown: #d2b48c81;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, ui-sans-serif, system-ui, Arial, Helvetica, sans-serif
+}
+
+html,
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 10vh;
+  background-image: url(Images/sand.jpeg);
+  color: black;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.hud {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-left: 50px;
+}
+
+.pill {
+  display: inline-block;
+  margin-right: 20px;
+  padding: 10px;
+  border: 2px solid var(--darkbrown);
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+button.btn {
+   display: inline-block;
+  margin-right: 20px;
+  padding: 8px;
+  border: 2px solid var(--darkbrown);
+  background-image: url(Images/sand.jpeg);
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#gameWrap {
+
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-image: url(Images/grass.jpeg);
+  height: 90vh;
+}
+
+#game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none
+}
+
+
+.entity {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  pointer-events: none
+}
+
+.chicken {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fff3d9, #fff1cc);
+  color: #1b1b1b;
+  font-size: 30px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  transition: transform .08s linear;
+  z-index: 20;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.chicken .name {
+  font-size: 10px;
+  margin-top: 0
+}
+.router {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.router .farmer,
+.router .wizard {
+    position: absolute;
+    left: 80%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    z-index: 10;
+}
+
+.wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.3);
+    animation: waveAnim 2s infinite;
+    z-index: 5;
+}
+
+.ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    pointer-events: none;
+}
+/* Signal waves (WiFi rings) */
+.router .wave {
+  position: absolute;
+  border: 2px solid rgba(40, 224, 86, 0.986);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  z-index: 5;
+  opacity: 0;
+  animation: waveAnim 3s infinite;
+}
+
+.router .wave:nth-child(2) {
+  animation-delay: 1s;
+}
+.router .wave:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes waveAnim {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(6);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(7);
+    opacity: 0;
+  }
+}
+
+.router .wave-w {
+  position: absolute;
+  border: 2px solid rgba(9, 159, 229, 0.986);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  z-index: 5;
+  opacity: 0;
+  animation: waveAnim 3s infinite;
+}
+
+.router .wave-w:nth-child(2) {
+  animation-delay: 1s;
+}
+.router .wave-w:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes waveAnim {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(6);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(7);
+    opacity: 0;
+  }
+}
+.router .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 6;
+  background: var(--accent);
+  filter: drop-shadow(0 0 8px rgba(40, 224, 198, 0.2))
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: pulse 2000ms ease-in-out infinite
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.03)
+  }
+
+  50% {
+    transform: scale(1.08)
+  }
+
+  100% {
+    transform: scale(1.03)
+  }
+}
+
+.egg {
+  position: absolute;
+  width: 18px;
+  height: 22px;
+  border-radius: 50% 50% 45% 45%/65% 65% 35% 35%;
+  background: linear-gradient(180deg, #fff6d8, #ffe49a);
+  border: 2px solid #e2b95f;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  z-index: 15;
+  transform-origin: center;
+  opacity: 0;
+  transition: transform .42s cubic-bezier(.15, .8, .25, 1), opacity .2s
+}
+
+.egg.pop {
+  opacity: 1;
+  transform: translateY(18px) scale(1)
+}
+
+.splat {
+  position: absolute;
+  width: 28px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  transform: rotate(-12deg);
+  opacity: 0;
+  animation: splatAnim .5s forwards;
+  z-index: 12
+}
+
+@keyframes splatAnim {
+  0% {
+    opacity: 0;
+    transform: scale(.2) translateY(-6px)
+  }
+
+  50% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(2px)
+  }
+}
+
+.fox {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffceba, #ffb195);
+  font-size: 30px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  z-index: 18;
+  transition: transform .12s, filter .12s
+}
+
+.fox.hurt {
+  transform: scale(.94) rotate(-6deg);
+  filter: brightness(1.15) saturate(1.1) contrast(1.06);
+  transition: transform .12s, filter .12s
+}
+
+@keyframes foxFlash {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 120, 80, 0.0);
+  }
+
+  50% {
+    box-shadow: 0 0 12px rgba(255, 120, 80, 0.42);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(255, 120, 80, 0.0);
+  }
+}
+
+.fox.flashAnim {
+  animation: foxFlash .28s linear;
+}
+
+.snake {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #b6f7ca, #86e8a3);
+  font-size: 22px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+  z-index: 12
+}
+
+.power {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff, #ffeaa7);
+  display: grid;
+  place-items: center;
+  z-index: 11;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22)
+}
+
+/* HUD within game */
+.topHUD {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  z-index: 40;
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+
+.stat {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background-image: url(Images/sand.jpeg);
+}
+
+.stat .label {
+  font-size: 12px;
+  color: black;
+}
+
+.stat .value {
+  font-weight: 800
+}
+
+.rightHUD {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 40;
+  display: flex;
+  gap: 10px
+}
+
+/* overlays */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(2, 8, 10, 0.6), rgba(0, 0, 0, 0.65));
+  z-index: 60
+}
+
+.panel {
+  background: var(--land);
+  padding: 18px;
+  border-radius: 14px;
+  border: var(--darkbrown);
+  text-align: center
+}
+
+.panel h1 {
+  margin: 0 0 10px;
+  font-size: 24px
+}
+
+.controls {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px
+}
+
+/* small helpers */
+.small {
+  font-size: 12px;
+}
+
+.shake {
+  animation: shake .36s linear
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0)
+  }
+
+  25% {
+    transform: translate(-6px, 3px)
+  }
+
+  50% {
+    transform: translate(4px, -3px)
+  }
+
+  75% {
+    transform: translate(-3px, 3px)
+  }
+
+  100% {
+    transform: translate(0)
+  }
+}
+
+/* particle container */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50
+}
+
+/* FRAGMENTS — explosion pieces */
+.fragment {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 48;
+  opacity: 1;
+  transform-origin: center;
+  will-change: transform, opacity;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+
+/* fade animation via inline JS transforms; CSS prepared for fallback */
+.fragment--chicken {
+  background: linear-gradient(180deg, #fff9df, #ffeaa7);
+}
+
+.fragment--chicken-acc {
+  background: linear-gradient(180deg, #ffd166, #ffeb99);
+}
+
+.fragment--fox {
+  background: linear-gradient(180deg, #ffb38a, #ff6f4a);
+}
+
+.fragment--fox-acc {
+  background: linear-gradient(180deg, #ff7a47, #ff3b1a);
+}
+
+/* DAMAGE FLASH for chicken */
+.damageFlash {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  background: rgba(255, 40, 40, 0.0);
+  transition: background .14s ease-out;
+}
+
+.hawk {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ddd, #aaa);
+  font-size: 28px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .12s;
+}
+
+
+/* responsive */
+@media (max-width:900px) {
+  #gameWrap {
+    height: 72vh
+  }
+}
+
+.startbtn {
+  border: 1px solid black;
+  background-color: var(--land);
+   display: inline-block;
+  margin-right: 20px;
+  padding: 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.p {
+ font-size: 15px;
+}
+
+
+.start {
+  border: 1px solid black;
+  background-color: var(--land);
+   display: inline-block;
+  margin-right: 20px;
+  padding: 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}

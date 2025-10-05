@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>WiFiChicken</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐔</text></svg>">
+
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="title">🐔 WiFiChicken</div>
+    <div class="hud">
+      <div class="pill small">Move: WASD / Arrows</div>
+      <div class="pill small">Shoot: <strong>Space</strong> | Dash: <strong>Shift</strong></div>
+      <button id="btnPause" class="btn">Pause</button>
+      <button id="btnRestart" class="btn">Restart</button>
+    </div>
+  </div>
+
+  <div id="gameWrap">
+    <div id="game" tabindex="0" aria-label="WIFIChicken game area"></div>
+    
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
